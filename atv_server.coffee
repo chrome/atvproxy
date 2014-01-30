@@ -18,7 +18,7 @@ class ATVServer
     https.createServer(@sslOptions, @handler).listen(443)
 
   handler: (request, response) =>
-    console.log "- request: #{unescape(request.url)}\n"
+    console.log "- request: #{unescape(request.url)}"
 
     request.chunks = []
     request.on 'data', (chunk) -> request.chunks.push(chunk.toString())

@@ -1,0 +1,31 @@
+{
+  "name": "atvproxy",
+  "version": "0.1.0",
+  "description": "AppleTV content proxy",
+  "main": "server.coffee",
+  "dependencies": {
+    "config": "~0.4.35",
+    "cheerio": "~0.13.1",
+    "director": "~1.2.2",
+    "mustache": "~0.8.1",
+    "memory-cache": "~0.0.5",
+    "request": "~2.33.0",
+    "yaml": "~0.2.3",
+    "coffee-script": "~1.6.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrome/atvproxy.git"
+  },
+  "keywords": [
+    "appletv",
+    "atv"
+  ],
+  "author": "chrome",
+  "license": "MIT",
+  "gitHead": "12ee2bc276ee67d24929b6e096086e47e5cb8dde",
+  "readmeFilename": "README.md"
+}

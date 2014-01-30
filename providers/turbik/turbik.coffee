@@ -81,7 +81,6 @@ class Turbik
       request options, (err, response, body) ->
         $ = cheerio.load(body)
         shows = []
-        console.log 'Parsing...'
         $('.serieslistbox').each ->
           shows.push
             img: 'https:' + $('img', @).attr('src').replace('s.jpg', 'ts.jpg')

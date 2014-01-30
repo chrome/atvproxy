@@ -6,7 +6,6 @@ CONFIG   = require('config').atv
 provider = require("./providers/#{CONFIG.provider}/provider")
 
 getJSFileContent = (name) ->
-  console.log "assets/js/#{name}.coffee"
   if fs.existsSync("assets/js/#{name}.js")
     fs.readFileSync("assets/js/#{name}.js")
   else if fs.existsSync("assets/js/#{name}.coffee")
@@ -28,7 +27,6 @@ router.get '/profile.cert', ->
 router.post '/signin', ->
   provider.signin {login: @req.body.login, password: @req.body.password}, (result, session) =>
     @res.writeHead 200, 'text/plain'
-    console.log 'answer:', result, session
     if result
       @res.write session
       @res.end()
