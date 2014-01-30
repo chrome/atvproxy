@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atv>
+  <head>
+    <script src="http://trailers.apple.com/js/utils" />
+  </head>
+  <body>
+    <scroller id="atvproxy_myshows">
+      <header>
+        <simpleHeader>
+          <title>Мои серии</title>
+        </simpleHeader>
+      </header>
+      <items>
+        {{#shows}}
+        <collectionDivider alignment="left">
+          <title><![CDATA[{{{title}}}]]></title>
+        </collectionDivider>
+
+        <shelf id="{{id}}" columnCount="3">
+          <sections>
+            <shelfSection>
+              <items>
+                {{#episodes}}
+                <fourByThreePoster id="" onSelect="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});" onPlay="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});" alwaysShowTitles="true" titleAlignment="left">
+                  <title>
+                    <![CDATA[{{{title}}}]]>
+                  </title>
+                  <subtitle>
+                    <![CDATA[{{{subtitle}}}]]>
+                  </subtitle>
+                  <image src="{{img}}"/>
+                  <defaultImage>
+                    resource://16x9.png
+                  </defaultImage>
+                </fourByThreePoster>
+                {{/episodes}}
+              </items>
+            </shelfSection>
+          </sections>
+        </shelf>
+        {{/shows}}
+      </items>
+    </scroller>
+  </body>
+</atv>

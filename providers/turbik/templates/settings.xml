@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atv>
+  <head>
+    <script src="http://trailers.apple.com/js/utils" />
+    <script src="http://trailers.apple.com/js/settings" />
+  </head>
+  <body>
+    <listWithPreview id="atvproxy_settings">
+      <header>
+        <simpleHeader>
+          <title>Настройки</title>
+        </simpleHeader>
+      </header>
+      <menu>
+        <sections>
+          <menuSection>
+            <header>
+              <horizontalDivider alignment="left">
+                <title>Предпочитаемый язык видео</title>
+              </horizontalDivider>
+            </header>
+            <items>
+              <oneLineMenuItem id="videoLang_ru" onSelect="settings.set('videoLang', 'ru')">
+                <label>Русский</label>
+                <accessories></accessories>
+              </oneLineMenuItem>
+
+              <oneLineMenuItem id="videoLang_en" onSelect="settings.set('videoLang', 'en')">
+                <label>Английский</label>
+                <accessories></accessories>
+              </oneLineMenuItem>
+            </items>
+          </menuSection>
+
+          <menuSection>
+            <header>
+              <horizontalDivider alignment="left">
+                <title>Предпочитаемый язык субтитров</title>
+              </horizontalDivider>
+            </header>
+            <items>
+              <oneLineMenuItem id="subsLang_ru" onSelect="settings.set('subsLang', 'ru')">
+                <label>Русский</label>
+              </oneLineMenuItem>
+              <oneLineMenuItem id="subsLang_en" onSelect="settings.set('subsLang', 'en')">
+                <label>Английский</label>
+              </oneLineMenuItem>
+            </items>
+          </menuSection>
+
+          <menuSection>
+            <header>
+              <horizontalDivider alignment="left">
+                <title>Просмотр</title>
+              </horizontalDivider>
+            </header>
+            <items>
+              <oneLineMenuItem id="autoview" onSelect="settings.set('autoview', !settings.get('autoview'))">
+                <label>Автопросмотр</label>
+              </oneLineMenuItem>
+            </items>
+          </menuSection>
+
+
+          <menuSection>
+            <header>
+              <horizontalDivider alignment="left">
+                <title>Аккаунт</title>
+              </horizontalDivider>
+            </header>
+
+            <items>
+              <oneLineMenuItem id="logout" onSelect="settings.signout()">
+                <label>Выход</label>
+              </oneLineMenuItem>
+            </items>
+          </menuSection>
+        </sections>
+
+      </menu>
+    </listWithPreview>
+  </body>
+</atv>

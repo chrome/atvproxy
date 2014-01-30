@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atv>
+  <body>
+    <authentication id="atvproxy_login">
+      <image required="true">https://s.turbik.tv/i/login/logotype.png</image>
+
+      <accountNameTitle>Turbofilm</accountNameTitle>
+      <accountNameInstructions>Только верующий сможет пройти</accountNameInstructions>
+      <accountNameLabel>Логин</accountNameLabel>
+      <accountNameFootnote/>
+
+      <accountPasswordTitle>Turbofilm</accountPasswordTitle>
+      <accountPasswordInstructions>Только верующий сможет пройти</accountPasswordInstructions>
+      <accountPasswordLabel>Пароль</accountPasswordLabel>
+
+      <connectionString>Вход...</connectionString>
+
+      <failureTitle>Неверный логин или пароль</failureTitle>
+      <failureInstructions>
+        Попробуй еще раз
+      </failureInstructions>
+
+      <!-- TODO: Remove url from here -->
+      <urlToLoadAfterAuth>http://trailers.apple.com/page/static/nav</urlToLoadAfterAuth>
+    </authentication>
+  </body>
+</atv>

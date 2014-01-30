@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atv>
+  <head>
+    <script src="http://trailers.apple.com/js/utils" />
+  </head>
+  <body>
+    <viewWithNavigationBar id="atvproxy_nav" onNavigate="loadMenuPage(event)">
+      <navigation>
+        <navigationItem id="my_shows">
+          <title>Мои сериалы</title>
+        </navigationItem>
+        <navigationItem id="all_shows">
+          <title>Сериалы</title>
+        </navigationItem>
+        <navigationItem id="static/settings">
+          <title>Настройки</title>
+        </navigationItem>
+      </navigation>
+    </viewWithNavigationBar>
+  </body>
+</atv>

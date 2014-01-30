@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atv>
+  <head>
+  </head>
+  <body>
+    <videoPlayer id="atvproxy_video">
+      <httpLiveStreamingVideoAsset id="VIDEO_1" indefiniteDuration="false">
+        <mediaURL>{{{stream_url}}}</mediaURL>
+        <myMetadata>
+          <episodeId id="episode_id">{{id}}</episodeId>
+          <nextEpisode id="next_episode_url">{{next_episode_url}}</nextEpisode>
+        </myMetadata>
+      </httpLiveStreamingVideoAsset>
+    </videoPlayer>
+  </body>
+</atv>

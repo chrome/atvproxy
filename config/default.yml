@@ -1,0 +1,8 @@
+atv:
+  domain: trailers.apple.com
+
+  ssl_key: assets/cert/trailers.key
+  ssl_cert: assets/cert/trailers.pem
+  atv_profile: assets/cert/trailers.cer
+
+  provider: turbik

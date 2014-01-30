@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atv>
+  <head>
+    <script src="http://trailers.apple.com/js/utils" />
+  </head>
+  <body>
+    <listWithPreview id="atvproxy_showseason">
+      <header>
+        <simpleHeader>
+          <title><![CDATA[{{{title}}}]]></title>
+        </simpleHeader>
+      </header>
+      <preview>
+        <keyedPreview>
+          <title><![CDATA[{{{title}}}]]></title>
+          <summary><![CDATA[{{{description}}}]]></summary>
+          <image src="{{img}}"/>
+        </keyedPreview>
+      </preview>
+      <menu>
+        <sections>
+          <menuSection>
+            <header>
+              <horizontalDivider alignment="left">
+                <title><![CDATA[{{{seasonTitle}}}]]></title>
+              </horizontalDivider>
+            </header>
+            <items>
+              {{#episodes}}
+              <twoLineEnhancedMenuItem id="" onSelect="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});" onPlay="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});">
+                <label><![CDATA[{{{name}}}]]></label>
+                <label2><![CDATA[{{{episode}}}]]></label2>
+                <image src="{{thumb}}"/>
+                <defaultImage>resource://16x9.png</defaultImage>
+              </twoLineEnhancedMenuItem>
+              {{/episodes}}
+            </items>
+          </menuSection>
+        </sections>
+      </menu>
+    </listWithPreview>
+  </body>
+</atv>

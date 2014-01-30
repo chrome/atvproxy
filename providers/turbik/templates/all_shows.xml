@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atv>
+  <head>
+    <script src="http://trailers.apple.com/js/utils" />
+  </head>
+  <body>
+    <listWithPreview id="atvproxy_allshows">
+      <header>
+        <simpleHeader>
+          <title>Все сериалы</title>
+        </simpleHeader>
+      </header>
+      <menu>
+        <sections>
+          <menuSection>
+            <header>
+              <horizontalDivider alignment="left">
+                <title><![CDATA[{{{seasonTitle}}}]]></title>
+              </horizontalDivider>
+            </header>
+            <items>
+              {{#shows}}
+              <oneLineMenuItem id="" onSelect="utils.loadPage(atv.config.ROOT_URL + '/page/show', {showUrl: '{{url}}'});" onPlay="utils.loadPage(atv.config.ROOT_URL + '/page/show', {showUrl: '{{url}}'});">
+                <label>
+                  <![CDATA[{{{title}}}]]>
+                </label>
+                <rightLabel></rightLabel>
+                <preview>
+                  <keyedPreview>
+                    <title>
+                      <![CDATA[{{{title}}}]]>
+                    </title>
+                    <summary>
+                      <![CDATA[{{{description}}}]]>
+                    </summary>
+                    <rightLabel>
+                      <![CDATA[{{episodeCount}}]]>
+                    </rightLabel>
+                    <image>{{img}}</image>
+                    <metadataKeys>
+                      <label>Жанр</label>
+                    </metadataKeys>
+                    <metadataValues>
+                      <label><![CDATA[{{{genre}}}]]></label>
+                    </metadataValues>
+                  </keyedPreview>
+                </preview>
+                <accessories>
+                  <arrow />
+                </accessories>
+              </oneLineMenuItem>
+              {{/shows}}
+            </items>
+          </menuSection>
+        </sections>
+      </menu>
+    </listWithPreview>
+  </body>
+</atv>
