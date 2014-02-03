@@ -65,6 +65,16 @@ atv.onAuthenticate = (login, password, callback) ->
 
 
 atv.onAppEntry = ->
+  defaultSettings =
+    videoQuality: 'hq'
+    videoLang: 'ru'
+    subsLang: 'none'
+    autoview: true
+
+  unless atv.localStorage['settings']
+    atv.localStorage.setItem 'settings', defaultSettings
+
+
   if atv.localStorage["session"]
     utils.loadPage(atv.config.ROOT_URL + '/page/static/nav')
   else

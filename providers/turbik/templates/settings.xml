@@ -17,6 +17,26 @@
           <menuSection>
             <header>
               <horizontalDivider alignment="left">
+                <title>Качество видео</title>
+              </horizontalDivider>
+            </header>
+            <items>
+              <oneLineMenuItem id="videoQuality_hq" onSelect="settings.set('videoQuality', 'hq')">
+                <label>Высокое</label>
+                <accessories></accessories>
+              </oneLineMenuItem>
+
+              <oneLineMenuItem id="videoQuality_default" onSelect="settings.set('videoQuality', 'default')">
+                <label>Обычное</label>
+                <accessories></accessories>
+              </oneLineMenuItem>
+            </items>
+          </menuSection>
+
+
+          <menuSection>
+            <header>
+              <horizontalDivider alignment="left">
                 <title>Предпочитаемый язык видео</title>
               </horizontalDivider>
             </header>

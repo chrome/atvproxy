@@ -33,6 +33,15 @@ toggleCheckmark = (id, toggle) ->
 
 settings.apply = ->
   options = settings.get()
+
+  if options.videoQuality == 'hq'
+    toggleCheckmark('videoQuality_hq', true)
+    toggleCheckmark('videoQuality_default', false)
+
+  if options.videoQuality == 'default'
+    toggleCheckmark('videoQuality_hq', false)
+    toggleCheckmark('videoQuality_default', true)
+
   if options.videoLang == 'ru'
     toggleCheckmark('videoLang_ru', true)
     toggleCheckmark('videoLang_en', false)

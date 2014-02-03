@@ -215,7 +215,7 @@ class Turbik
         metadata = cheerio.load(@meta_decoder($('#metadata').val()), xmlMode: true)
         cookie = options.jar.getCookieString('http://turbik.tv')[7..]
 
-        quality = if metadata('movie > hq').text() == '1' then 'hq' else 'default'
+        quality = if params['settings[videoQuality]'] == 'hq' && metadata('movie > hq').text() == '1' then 'hq' else 'default'
 
         if params['settings[videoLang]'] == 'en'
           videoLang = if metadata('langs en').text() == '1' then 'en' else 'ru'
