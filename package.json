@@ -11,8 +11,7 @@
     "memory-cache": "~0.0.5",
     "request": "~2.33.0",
     "yaml": "~0.2.3",
-    "coffee-script": "~1.6.3",
-    "xml2js": "~0.4.1"
+    "coffee-script": "~1.6.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

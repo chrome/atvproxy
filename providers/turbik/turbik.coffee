@@ -2,7 +2,6 @@ request     = require('request')
 cheerio     = require('cheerio')
 crypto      = require('crypto')
 cache       = require('memory-cache')
-parseString = require('xml2js').parseString
 
 class Turbik
   signin: (credentials, callback) ->
