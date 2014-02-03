@@ -223,9 +223,19 @@ class Turbik
           videoLang = if metadata('langs ru').text() == '1' then 'ru' else 'en'
 
         if params['settings[subsLang]'] == 'en'
-          subsLang = if metadata('subtitles > en').text() == '1' then 'en' else 'ru'
+          if metadata('subtitles > en').text() == '1'
+            subsLang = 'en'
+          else if metadata('subtitles > ru').text() == '1'
+            subsLang = 'ru'
+          else
+            subsLang = 'none'
         else if params['settings[subsLang]'] == 'ru'
-          subsLang = if metadata('subtitles > ru').text() == '1' then 'ru' else 'en'
+          if metadata('subtitles > ru').text() == '1'
+            subsLang = 'ru'
+          else if metadata('subtitles > en').text() == '1'
+            subsLang = 'en'
+          else
+            subsLang = 'none'
         else
           subsLang = 'none'
 
