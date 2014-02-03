@@ -1,8 +1,8 @@
-request   = require('request')
-cheerio   = require('cheerio')
-crypto    = require('crypto')
-cache     = require('memory-cache')
-
+request     = require('request')
+cheerio     = require('cheerio')
+crypto      = require('crypto')
+cache       = require('memory-cache')
+parseString = require('xml2js').parseString
 
 class Turbik
   signin: (credentials, callback) ->
@@ -174,10 +174,33 @@ class Turbik
 
 
 
+  getSubtitles: (url, callback) ->
+    if subtitles = cache.get('subs' + url)
+      callback(subtitles)
+    else
+      options =
+        url: url
+        headers:
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36'
+
+      request options, (err, response, body) =>
+        $ = cheerio.load(body, xmlMode: true)
+        result = []
+        $('subtitle').each ->
+          result.push
+            from: parseFloat($('start', @).text().replace(',', '.'))
+            to: parseFloat($('end', @).text().replace(',', '.'))
+            text: $('text', @).text().replace(/[\r\n]+/g, ' ')
+
+        callback(result)
+
+
 
 
   getEpisodeInfo: (params, episodeUrl, callback) ->
-    if info = cache.get(episodeUrl + params.session)
+    cacheKey = episodeUrl + JSON.stringify(params)
+
+    if info = cache.get(cacheKey)
       callback(info)
     else
       options =
@@ -200,9 +223,11 @@ class Turbik
           videoLang = if metadata('langs ru').text() == '1' then 'ru' else 'en'
 
         if params['settings[subsLang]'] == 'en'
-          subsLang = if metadata('subtitles en').text() == '1' then 'en' else 'ru'
+          subsLang = if metadata('subtitles > en').text() == '1' then 'en' else 'ru'
+        else if params['settings[subsLang]'] == 'ru'
+          subsLang = if metadata('subtitles > ru').text() == '1' then 'ru' else 'en'
         else
-          subsLang = if metadata('subtitles ru').text() == '1' then 'ru' else 'en'
+          subsLang = 'none'
 
         episode_id  = metadata('eid').text()
         source_hash = metadata("sources2 #{quality}").text()
@@ -242,8 +267,16 @@ class Turbik
           stream_url: url
           next_episode_url: nextEpisodeUrl
 
-        cache.put(episodeUrl + params.session, info, 60000)
-        callback(info)
+        if subsLang == 'none'
+          cache.put(cacheKey, info, 60000)
+          callback(info)
+        else
+          subtitlesUrl = 'https:' + metadata("subtitles sources #{subsLang}").text()
+          @getSubtitles subtitlesUrl, (subtitles) ->
+            info.subtitles = JSON.stringify(subtitles)
+            cache.put(cacheKey, info, 60000)
+            callback(info)
+
 
 # <?xml version="1.0" encoding="utf-16"?>
 # <movie>

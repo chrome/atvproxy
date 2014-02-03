@@ -15,23 +15,28 @@ View  = require('views')
 
 
 atv.player.willStartPlaying = ->
-  view = new View()
   atv.player.reachedEnd     = false
   atv.player.nextEpisodeUrl = atv.player.asset.getElementByTagName('nextEpisode').textContent
   atv.player.episodeId      = atv.player.asset.getElementByTagName('episodeId').textContent
-  atv.player.overlayView    = view
-  atv.player.overlay        = view.container()
+  atv.player.overlayView    = new View()
+
+  unless atv.localStorage['settings']?['subsLang'] == 'none'
+    subsText = atv.player.asset.getElementByTagName('subtitles').textContent
+    atv.player.overlayView.setSubtitles(JSON.parse(subsText)) if subsText
 
 atv.player.playerTimeDidChange = (time) ->
   time     = atv.player.convertGrossToNetTime(time)
   duration = atv.player.currentItem.duration
   timeLeft = Math.round(duration - time)
 
+  unless atv.localStorage['settings']?['subsLang'] == 'none'
+    atv.player.overlayView.updateSubtitles(time)
+
   if atv.player.nextEpisodeUrl && atv.localStorage['settings']?['autoview']
     if timeLeft > 165 && timeLeft < 180
       atv.player.overlayView.setText(utils.timeInWords(timeLeft) + ' до след. эпизода')
       atv.player.overlayView.showView()
-    if timeLeft > 180
+    if timeLeft <= 165
       atv.player.overlayView.hideView()
 
   if time == duration

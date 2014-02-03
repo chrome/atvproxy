@@ -36,15 +36,18 @@
           <menuSection>
             <header>
               <horizontalDivider alignment="left">
-                <title>Предпочитаемый язык субтитров</title>
+                <title>Субтитры</title>
               </horizontalDivider>
             </header>
             <items>
+              <oneLineMenuItem id="subsLang_none" onSelect="settings.set('subsLang', 'none')">
+                <label>Отключены</label>
+              </oneLineMenuItem>
               <oneLineMenuItem id="subsLang_ru" onSelect="settings.set('subsLang', 'ru')">
-                <label>Русский</label>
+                <label>Русские</label>
               </oneLineMenuItem>
               <oneLineMenuItem id="subsLang_en" onSelect="settings.set('subsLang', 'en')">
-                <label>Английский</label>
+                <label>Английские</label>
               </oneLineMenuItem>
             </items>
           </menuSection>

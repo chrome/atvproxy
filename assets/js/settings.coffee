@@ -44,10 +44,17 @@ settings.apply = ->
   if options.subsLang == 'ru'
     toggleCheckmark('subsLang_ru', true)
     toggleCheckmark('subsLang_en', false)
+    toggleCheckmark('subsLang_none', false)
 
   if options.subsLang == 'en'
     toggleCheckmark('subsLang_en', true)
     toggleCheckmark('subsLang_ru', false)
+    toggleCheckmark('subsLang_none', false)
+
+  if options.subsLang == 'none'
+    toggleCheckmark('subsLang_en', false)
+    toggleCheckmark('subsLang_ru', false)
+    toggleCheckmark('subsLang_none', true)
 
   toggleCheckmark('autoview', !!settings.get('autoview'))
 

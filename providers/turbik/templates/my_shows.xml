@@ -5,7 +5,8 @@
     <script src="http://trailers.apple.com/js/utils" />
   </head>
   <body>
-    <scroller id="atvproxy_myshows">
+
+    <scroller id="atvproxy_myshows" volatile="true" onVolatileReload="utils.reloadPage(atv.config.ROOT_URL + '/page/my_shows')">
       <header>
         <simpleHeader>
           <title>Мои серии</title>

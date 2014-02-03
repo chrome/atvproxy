@@ -104,8 +104,13 @@ do ->
       params.session  = atv.localStorage['session']
       params.settings = atv.localStorage['settings']
       url = url + '?' + serialize(params)
-      log 'Loading: ' + url
       atv.loadURL(url)
+
+    reloadPage: (url, params = {}) ->
+      params.session  = atv.localStorage['session']
+      params.settings = atv.localStorage['settings']
+      @Ajax.get url, params, (xml) ->
+        atv.loadAndSwapXML(xml)
 
 
   Helpers
