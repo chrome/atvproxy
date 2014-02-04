@@ -132,13 +132,17 @@ do ->
       words = text.split(/\ +/)
       lines = []
       l = 0
-      limit = Math.ceil(text.length / 2)
-      for word in words
-        l++ if lines[l]?.length > limit || lines[l]?.length + word.length > 80
-        lines[l] = if lines[l]
-          lines[l] + ' ' + word
-        else
-          word
+
+      if text.length < 40
+        lines[0] = text
+      else
+        limit = Math.ceil(text.length / 2)
+        for word in words
+          l++ if lines[l]?.length > limit || lines[l]?.length + word.length > 80
+          lines[l] = if lines[l]
+            lines[l] + ' ' + word
+          else
+            word
 
       if lines.length < 3
         @setSubtitleLineText(0, lines[1] || '')
