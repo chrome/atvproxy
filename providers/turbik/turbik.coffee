@@ -4,18 +4,6 @@ crypto      = require('crypto')
 cache       = require('memory-cache')
 
 class Turbik
-  signin: (credentials, callback) ->
-    options =
-      url: 'https://turbik.tv/Signin'
-      jar: request.jar()
-      method: 'post'
-      form: credentials
-      headers:
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36'
-
-    request options, (err, response, body) =>
-      cookie = options.jar.getCookieString('http://turbik.tv')
-      callback(!!cookie, cookie)
 
   getCookieJar: (session) ->
     jar = request.jar()
@@ -35,63 +23,6 @@ class Turbik
 
     request options, (err, response, body) ->
       callback()
-
-
-  fetchMyShows: (session, callback) ->
-    if shows = cache.get("myShows#{session}")
-      callback(shows)
-    else
-      options =
-        url: 'https://turbik.tv/My/Series'
-        jar: @getCookieJar(session)
-        headers:
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36'
-
-      request options, (err, response, body) ->
-        $ = cheerio.load(body)
-        shows = []
-        $('.myseriesbox').each ->
-          episodes = []
-          $('.myseriesblock, .myseriesblockc', @).each ->
-            episodes.push
-              img: 'https:' + $('img', @).attr('src')
-              title: $('.myseriesbten', @).text()
-              subtitle: $('.myseriesbbs', @).map( -> $(@).text() ).toArray().join(', ')
-              url: $(@).closest('a').attr('href')
-
-          shows.push
-            id: $(@).attr('id')
-            title: $('.myseriesent', @).text()
-            episodes: episodes
-
-        cache.put("myShows#{session}", shows, 60000)
-        callback?(shows)
-
-  fetchAllShows: (session, callback) ->
-    if shows = cache.get("allShows#{session}")
-      callback(shows)
-    else
-      options =
-        url: 'https://turbik.tv/Series'
-        jar: @getCookieJar(session)
-        headers:
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36'
-
-      request options, (err, response, body) ->
-        $ = cheerio.load(body)
-        shows = []
-        $('.serieslistbox').each ->
-          shows.push
-            img: 'https:' + $('img', @).attr('src').replace('s.jpg', 'ts.jpg')
-            url: $(@).closest('a').attr('href')
-            title: $('.serieslistboxen', @).text()
-            description: $('.serieslistboxdesc', @).text()
-            genre: $('.serieslistboxpersr .serieslistboxperstext', @).last().text()[6..]
-            episodeCount: $($('.serieslistboxpersl .serieslistboxperstext', @)[1]).text()
-
-        cache.put("allShows#{session}", shows, 600000)
-        callback(shows)
-
 
   meta_decoder: (param1) ->
     param1 = unescape(param1)
@@ -120,8 +51,84 @@ class Turbik
     param1 = enc_replace(param1, 'd')
     new Buffer(param1, 'base64').toString()
 
+
+
+  signin: (credentials, callback) ->
+    options =
+      url: 'https://turbik.tv/Signin'
+      jar: request.jar()
+      method: 'post'
+      form: credentials
+      headers:
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36'
+
+    request options, (err, response, body) =>
+      cookie = options.jar.getCookieString('http://turbik.tv')
+      callback(!!cookie, cookie)
+
+  fetchMyShows: (session, callback) ->
+    cacheKey = 'myShows' + session
+
+    if shows = cache.get(cacheKey)
+      callback(shows)
+    else
+      options =
+        url: 'https://turbik.tv/My/Series'
+        jar: @getCookieJar(session)
+        headers:
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36'
+
+      request options, (err, response, body) ->
+        $ = cheerio.load(body)
+        shows = []
+        $('.myseriesbox').each ->
+          episodes = []
+          $('.myseriesblock, .myseriesblockc', @).each ->
+            episodes.push
+              img: 'https:' + $('img', @).attr('src')
+              title: $('.myseriesbten', @).text()
+              subtitle: $('.myseriesbbs', @).map( -> $(@).text() ).toArray().join(', ')
+              url: $(@).closest('a').attr('href')
+
+          shows.push
+            id: $(@).attr('id')
+            title: $('.myseriesent', @).text()
+            episodes: episodes
+
+        cache.put(cacheKey, shows, 60000)
+        callback(shows)
+
+  fetchAllShows: (session, callback) ->
+    cacheKey = 'allShows' + session
+
+    if shows = cache.get(cacheKey)
+      callback(shows)
+    else
+      options =
+        url: 'https://turbik.tv/Series'
+        jar: @getCookieJar(session)
+        headers:
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.77 Safari/537.36'
+
+      request options, (err, response, body) ->
+        $ = cheerio.load(body)
+        shows = []
+        $('.serieslistbox').each ->
+          shows.push
+            img: 'https:' + $('img', @).attr('src').replace('s.jpg', 'ts.jpg')
+            url: $(@).closest('a').attr('href')
+            title: $('.serieslistboxen', @).text()
+            description: $('.serieslistboxdesc', @).text()
+            genre: $('.serieslistboxpersr .serieslistboxperstext', @).last().text()[6..]
+            episodeCount: $($('.serieslistboxpersl .serieslistboxperstext', @)[1]).text()
+
+        cache.put(cacheKey, shows, 86400000)
+        callback(shows)
+
   fetchShowSeasons: (session, showUrl, callback) ->
-    if info = cache.get('showInfo' + showUrl + session)
+    cacheKey = 'showInfo' + showUrl + session
+
+    if info = cache.get(cacheKey)
       callback(info)
     else
       options =
@@ -137,11 +144,13 @@ class Turbik
           title: $('.sseriestitleten').text()
           description: $('#desccnt').text()
 
-        cache.put('showInfo' + showUrl + session, info, 60000)
+        cache.put(cacheKey, info, 3600000)
         callback(info)
 
   fetchSeasonInfo: (session, seasonUrl, callback) ->
-    if info = cache.get('seasonInfo' + seasonUrl + session)
+    cacheKey = 'seasonInfo' + seasonUrl + session
+
+    if info = cache.get(cacheKey)
       callback(info)
     else
       options =
@@ -167,14 +176,14 @@ class Turbik
             url: $(@).closest('a').attr('href')
 
         info.episodes.reverse()
+        cache.put(cacheKey, info, 3600000)
 
-        cache.put('seasonInfo' + seasonUrl + session, info, 60000)
         callback(info)
 
-
-
   getSubtitles: (url, callback) ->
-    if subtitles = cache.get('subs' + url)
+    cacheKey = 'subs' + url
+
+    if subtitles = cache.get(cacheKey)
       callback(subtitles)
     else
       options =
@@ -191,10 +200,8 @@ class Turbik
             to: parseFloat($('end', @).text().replace(',', '.'))
             text: $('text', @).text().replace(/[\r\n]+/g, ' ')
 
+        cache.put(cacheKey, info, 86400000)
         callback(result)
-
-
-
 
   getEpisodeInfo: (params, episodeUrl, callback) ->
     cacheKey = episodeUrl + JSON.stringify(params)
