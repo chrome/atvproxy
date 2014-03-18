@@ -247,7 +247,7 @@ class Turbik
 
         episode_id  = metadata('eid').text()
         source_hash = metadata("sources2 #{quality}").text()
-        position = 0
+        position = params.position || 0
 
         hash = crypto.createHash('sha1')
         hash.update(cookie + Math.random())
@@ -280,6 +280,7 @@ class Turbik
 
         info =
           id: episode_id
+          url: params.episodeUrl
           stream_url: url
           next_episode_url: nextEpisodeUrl
 

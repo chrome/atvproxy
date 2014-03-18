@@ -28,7 +28,7 @@
             </header>
             <items>
               {{#episodes}}
-              <twoLineEnhancedMenuItem id="" onSelect="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});" onPlay="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});">
+              <twoLineEnhancedMenuItem id="" onSelect="playEpisode('{{url}}');" onPlay="playEpisode('{{url}}');">
                 <label><![CDATA[{{{name}}}]]></label>
                 <label2><![CDATA[{{{episode}}}]]></label2>
                 <image src="{{thumb}}"/>

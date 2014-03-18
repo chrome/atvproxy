@@ -23,7 +23,7 @@
             <shelfSection>
               <items>
                 {{#episodes}}
-                <fourByThreePoster id="" onSelect="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});" onPlay="utils.loadPage(atv.config.ROOT_URL + '/page/video', {episodeUrl: '{{url}}'});" alwaysShowTitles="true" titleAlignment="left">
+                <fourByThreePoster id="" onSelect="playEpisode('{{url}}')" onPlay="playEpisode('{{url}}')" alwaysShowTitles="true" titleAlignment="left">
                   <title>
                     <![CDATA[{{{title}}}]]>
                   </title>

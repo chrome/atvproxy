@@ -5,14 +5,15 @@
   </head>
   <body>
     <videoPlayer id="atvproxy_video">
-      <httpFileVideoAsset id="VIDEO_1">
+      <httpLiveStreamingVideoAsset id="VIDEO_1">
         <mediaURL>{{{stream_url}}}</mediaURL>
         <myMetadata>
           <episodeId id="episode_id">{{id}}</episodeId>
+          <episodeUrl id="episode_url">{{url}}</episodeUrl>
           <nextEpisode id="next_episode_url">{{next_episode_url}}</nextEpisode>
           <subtitles id="subtitles"><![CDATA[{{{subtitles}}}]]></subtitles>
         </myMetadata>
-      </httpFileVideoAsset>
+      </httpLiveStreamingVideoAsset>
     </videoPlayer>
   </body>
 </atv>

@@ -18,6 +18,7 @@ atv.player.willStartPlaying = ->
   atv.player.reachedEnd     = false
   atv.player.nextEpisodeUrl = atv.player.asset.getElementByTagName('nextEpisode').textContent
   atv.player.episodeId      = atv.player.asset.getElementByTagName('episodeId').textContent
+  atv.player.episodeUrl     = atv.player.asset.getElementByTagName('episodeUrl').textContent
   atv.player.overlayView    = new View()
 
   unless atv.localStorage['settings']?['subsLang'] == 'none'
@@ -28,6 +29,8 @@ atv.player.playerTimeDidChange = (time) ->
   time     = atv.player.convertGrossToNetTime(time)
   duration = atv.player.currentItem.duration
   timeLeft = Math.round(duration - time)
+
+  atv.localStorage.setItem('savedPosition:' + atv.player.episodeUrl, Math.max(Math.round(time - 30), 0))
 
   unless atv.localStorage['settings']?['subsLang'] == 'none'
     atv.player.overlayView.updateSubtitles(time)
